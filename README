@@ -1,0 +1,47 @@
+Installing dependencies
+-----------------------
+Make sure you have Python 3.7+ somewhere.
+
+Option 1: Using pipenv
+
+    pip3 install pipenv  # skip if pipenv is already installed
+    cd <project-dir>
+    pipenv install --python <path-to-python-binary>  # --python is optional
+    pipenv shell  # start shell
+
+Option 2: Using venv
+
+    cd <project-dir>
+    python -m venv ./venv
+    source venv/bin/activate
+    pip install -r requirements.txt
+
+
+Running the crawler
+-------------------
+Show help
+
+    ./main.py -h
+
+Crawl URL with concurrency=10 and depth=2
+
+    ./main.py -n 10 -d 2 -o output.json https://old.reddit.com
+
+Check output
+
+    less output.json
+
+
+Features
+--------
+- Configurable concurrency and depth limit.
+- Uses asyncio for faster performance and reduced CPU usage.
+- Uses url-normalize for normalizing URLs to prevent duplicates.
+
+Limitations
+-----------
+- Very basic output format
+- Does not handle all kinds of URLs in <a> tags
+- Only handles responses with status 200 and text/html content type
+- Hardcoded breadth-first crawling, no option to change
+- aiohttp can fail randomly (SSL certificate issues)
